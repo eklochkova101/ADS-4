@@ -41,8 +41,11 @@ int countPairs3(int *arr, int len, int value) {
         }
         counter += jCntr * iCntr;
       }
-    } else if (sum > value) i--;
-    else j++;
+    } else if (sum > value) {
+      i--;
+    } else {
+      j++;
+    }
   }
   return counter;
 }
