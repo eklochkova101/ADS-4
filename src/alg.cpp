@@ -1,4 +1,5 @@
 // Copyright 2021 NNTU-CS
+#include <cstddef>
 size_t binSearch(int* arr, int target, int leftBound, int rightBound);
 int countPairs1(int *arr, int len, int value) {
   size_t counter = 0, i = 0, j;
@@ -10,11 +11,14 @@ int countPairs1(int *arr, int len, int value) {
 }
 size_t binSearch(int* arr, int target, int leftBound, int rightBound) {
   if (leftBound > rightBound) return 0;
-  if (arr[(leftBound + rightBound) / 2] == target) {
-    return 1 + binSearch(arr, target, leftBound, (leftBound + rightBound) / 2 - 1) + binSearch(arr, target, (leftBound + rightBound) / 2 + 1, rightBound);
-  }
-  else if (arr[(leftBound + rightBound) / 2] > target) return binSearch(arr, target, leftBound, (leftBound + rightBound) / 2 - 1);
-  else return binSearch(arr, target, ((leftBound + rightBound) / 2 + 1), rightBound);
+  if (arr[(leftBound + rightBound) / 2] == target)
+    return 1 + binSearch(arr, target,
+      leftBound, (leftBound + rightBound) / 2 - 1)
+      + binSearch(arr, target, (leftBound + rightBound) / 2 + 1, rightBound);
+  else if (arr[(leftBound + rightBound) / 2] > target)
+    return binSearch(arr, target, leftBound, (leftBound + rightBound) / 2 - 1);
+  else return binSearch(arr, target,
+    ((leftBound + rightBound) / 2 + 1), rightBound);
 }
 int countPairs3(int *arr, int len, int value) {
   size_t i = len - 1, j = 0, counter = 0;
@@ -24,8 +28,7 @@ int countPairs3(int *arr, int len, int value) {
       if (arr[i] == arr[j]) {
         counter += (i - j + 1) * (i - j) / 2;
         break;
-      }
-      else {
+      } else {
         size_t iCntr = 0; int i_value = arr[i];
         while (i >= j && arr[i] == i_value) {
           iCntr++;
@@ -38,8 +41,7 @@ int countPairs3(int *arr, int len, int value) {
         }
         counter += jCntr * iCntr;
       }
-    }
-    else if (sum > value) i--;
+    } else if (sum > value) i--;
     else j++;
   }
   return counter;
